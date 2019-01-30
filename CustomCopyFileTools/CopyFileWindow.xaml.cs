@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using Panuon.UI;
 using MessageBox = System.Windows.MessageBox;
 
 namespace CustomCopyFileTools
@@ -10,7 +11,7 @@ namespace CustomCopyFileTools
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CopyFileWindow : Window
+    public partial class CopyFileWindow : PUWindow
     {
         private readonly Configuration _config;
         public CopyFileWindow()

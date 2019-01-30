@@ -1,20 +1,20 @@
-﻿<Window x:Class="CustomCopyFileTools.CopyFileWindow"
+﻿<pu:PUWindow x:Class="CustomCopyFileTools.CopyFileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomCopyFileTools"
+        xmlns:pu="clr-namespace:Panuon.UI;assembly=Panuon.UI"
         mc:Ignorable="d"
-        Title="路径选择" Height="308" Width="538" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="路径选择" Height="308" Width="538" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowShowDelay="True" >
     <Grid>
         <Label Content="源文件路径：" Margin="32,49,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="101"/>
         <Label Content="目标路径：" Margin="32,115,399,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox Name="TbOriginalPath" Height="28" Margin="138,49,121,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox Name="TbtargetPath" Height="28" Margin="138,115,121,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <Button Name="BtnBrowserOriginalPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,49,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserOriginalPath_Click" />
-        <Button Name="BtnBrowserTargetPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,115,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserTargetPath_Click"/>
-        <Button Name="BtnCancel" Content="退出" HorizontalAlignment="Right" Margin="0,0,116,41" Width="77" Click="BtnCancel_Click" FontWeight="Bold" FontStyle="Italic" Height="40" VerticalAlignment="Bottom"/>
-        <Button Name="BtnStart" Content="开始复制" Margin="116,0,0,41" Click="BtnStart_Click" FontWeight="Bold" HorizontalAlignment="Left" Width="77" Height="40" VerticalAlignment="Bottom"/>
-
+        <pu:PUTextBox Name="TbOriginalPath" Height="28" Margin="138,49,121,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <pu:PUTextBox Name="TbtargetPath" Height="28" Margin="138,115,121,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <pu:PUButton Name="BtnBrowserOriginalPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,49,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserOriginalPath_Click" />
+        <pu:PUButton Name="BtnBrowserTargetPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,115,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserTargetPath_Click"/>
+        <pu:PUButton Name="BtnCancel" Content="退出" HorizontalAlignment="Right" Margin="0,0,116,41" Width="77" Click="BtnCancel_Click" FontWeight="Bold" FontStyle="Italic" Height="40" VerticalAlignment="Bottom"/>
+        <pu:PUButton Name="BtnStart" Content="开始复制" Margin="116,0,0,41" Click="BtnStart_Click" FontWeight="Bold" HorizontalAlignment="Left" Width="77" Height="40" VerticalAlignment="Bottom"/>
     </Grid>
-</Window>
+</pu:PUWindow>
