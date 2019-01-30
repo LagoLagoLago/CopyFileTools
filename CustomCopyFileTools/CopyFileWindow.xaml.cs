@@ -1,29 +1,31 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Panuon.UI;
-using MessageBox = System.Windows.MessageBox;
 
 namespace CustomCopyFileTools
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CopyFileWindow : PUWindow
+    public partial class CopyFileWindow
     {
         private readonly Configuration _config;
+
+        private delegate void UpdateProgressBarDelegate(DependencyProperty dp, object value);
         public CopyFileWindow()
         {
             InitializeComponent();
             _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var originalPath = _config.AppSettings.Settings["originalPath"].Value;
             var targetPath = _config.AppSettings.Settings["targetPath"].Value;
-            this.TbOriginalPath.Text = originalPath;
-            this.TbtargetPath.Text = targetPath;
+            TbOriginalPath.Text = originalPath;
+            TbtargetPath.Text = targetPath;
         }
 
 
@@ -69,7 +71,6 @@ namespace CustomCopyFileTools
             if (TbtargetPath.Text.Trim().Contains(TbOriginalPath.Text.Trim()))
             {
                 PUMessageBox.ShowConfirm("路径存在包含关系，无法复制", "温馨提示", buttons: Buttons.OK);
-                return;
             }
         }
 
@@ -84,13 +85,11 @@ namespace CustomCopyFileTools
             if (!CopyDirectoty(TbOriginalPath.Text, TbtargetPath.Text, true))
             {
                 PUMessageBox.ShowConfirm("复制失败", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);
-                return;
             }
             else
             {
                 PUMessageBox.ShowConfirm("复制成功", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);//.Show("复制成功", "温馨提示");
-                this.Close();
-                return;
+                Close();
             }
         }
 
@@ -116,16 +115,18 @@ namespace CustomCopyFileTools
                 }
                 var originalFiles = Directory.GetFiles(sourcePath);
 
-                ProgressBar.IsPercentShow = true;
-                ProgressBar.ProgressDirection = ProgressDirections.LeftToRight;
+                //ProgressBar.IsPercentShow = true;
+                //ProgressBar.
+                ProgressBar.Maximum = originalFiles.Length;
                 ProgressBar.Visibility = Visibility.Visible;
+                UpdateProgressBarDelegate updateProgressBaDelegate = new UpdateProgressBarDelegate(ProgressBar.SetValue);
                 var count = 0.0;
                 foreach (var file in originalFiles)
                 {
                     var flinfo = new FileInfo(file);
                     flinfo.CopyTo(targetPath + flinfo.Name, overWrite);
                     count++;
-                    ProgressBar.Percent = count / originalFiles.Length;
+                    Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, new object[] { RangeBase.ValueProperty, count });
                 }
                 result = true;
             }
@@ -139,7 +140,7 @@ namespace CustomCopyFileTools
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
