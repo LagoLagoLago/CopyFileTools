@@ -128,6 +128,7 @@ namespace CustomCopyFileTools
                     count++;
                     Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, new object[] { RangeBase.ValueProperty, count });
                 }
+                ProgressBar.Visibility = Visibility.Hidden;
                 result = true;
             }
             catch (Exception e)
