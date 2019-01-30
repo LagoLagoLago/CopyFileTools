@@ -28,8 +28,6 @@ namespace CustomCopyFileTools
             TbtargetPath.Text = targetPath;
         }
 
-
-
         private void BtnBrowserOriginalPath_Click(object sender, RoutedEventArgs e)
         {
             var chooseFolderDialog = new FolderBrowserDialog();
@@ -119,16 +117,18 @@ namespace CustomCopyFileTools
                 //ProgressBar.
                 ProgressBar.Maximum = originalFiles.Length;
                 ProgressBar.Visibility = Visibility.Visible;
-                UpdateProgressBarDelegate updateProgressBaDelegate = new UpdateProgressBarDelegate(ProgressBar.SetValue);
+                UpdateProgressBarDelegate updateProgressBaDelegate = ProgressBar.SetValue;
                 var count = 0.0;
                 foreach (var file in originalFiles)
                 {
                     var flinfo = new FileInfo(file);
                     flinfo.CopyTo(targetPath + flinfo.Name, overWrite);
                     count++;
-                    Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, new object[] { RangeBase.ValueProperty, count });
+                    Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, RangeBase.ValueProperty, count);
+                    LbPercent.Content = $"{Math.Round(count * 100 / originalFiles.Length, 4)}%";
                 }
                 ProgressBar.Visibility = Visibility.Hidden;
+                LbPercent.Visibility = Visibility.Hidden;
                 result = true;
             }
             catch (Exception e)
