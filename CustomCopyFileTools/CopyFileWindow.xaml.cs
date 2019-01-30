@@ -126,7 +126,7 @@ namespace CustomCopyFileTools
                     flinfo.CopyTo(targetPath + flinfo.Name, overWrite);
                     count++;
                     Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, RangeBase.ValueProperty, count);
-                    LbPercent.Content = $"{Math.Round(count * 100 / originalFiles.Length, 4)}%";
+                    LbPercent.Content = $"{Math.Round(count * 100 / originalFiles.Length, 2)}%";
                 }
                 ProgressBar.Visibility = Visibility.Hidden;
                 LbPercent.Visibility = Visibility.Hidden;
