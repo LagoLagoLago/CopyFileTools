@@ -117,6 +117,7 @@ namespace CustomCopyFileTools
                 //ProgressBar.
                 ProgressBar.Maximum = originalFiles.Length;
                 ProgressBar.Visibility = Visibility.Visible;
+                LbPercent.Visibility = Visibility.Visible;
                 UpdateProgressBarDelegate updateProgressBaDelegate = ProgressBar.SetValue;
                 var count = 0.0;
                 foreach (var file in originalFiles)
