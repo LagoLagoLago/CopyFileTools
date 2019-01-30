@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CustomCopyFileTools"
         xmlns:pu="clr-namespace:Panuon.UI;assembly=Panuon.UI"
         mc:Ignorable="d"
-        Title="路径选择" Height="308" Width="538" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowShowDelay="True" >
+        Title="路径选择" Height="308" Width="538" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowShowDelay="True" Topmost="False">
     <Grid>
         <Label Content="源文件路径：" Margin="32,49,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="101"/>
         <Label Content="目标路径：" Margin="32,115,399,0" VerticalAlignment="Top" FontSize="14"/>
@@ -14,6 +14,8 @@
         <pu:PUTextBox Name="TbtargetPath" Height="28" Margin="138,115,121,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <pu:PUButton Name="BtnBrowserOriginalPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,49,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserOriginalPath_Click" />
         <pu:PUButton Name="BtnBrowserTargetPath" Content="浏览文件夹" HorizontalAlignment="Right" Margin="0,115,33,0" VerticalAlignment="Top" Width="75" Height="28" Click="BtnBrowserTargetPath_Click"/>
+        <pu:PUProgressBar Name="ProgressBar" Margin="32,163,33,99" Visibility="Hidden"/>
+
         <pu:PUButton Name="BtnCancel" Content="退出" HorizontalAlignment="Right" Margin="0,0,116,41" Width="77" Click="BtnCancel_Click" FontWeight="Bold" FontStyle="Italic" Height="40" VerticalAlignment="Bottom"/>
         <pu:PUButton Name="BtnStart" Content="开始复制" Margin="116,0,0,41" Click="BtnStart_Click" FontWeight="Bold" HorizontalAlignment="Left" Width="77" Height="40" VerticalAlignment="Bottom"/>
     </Grid>

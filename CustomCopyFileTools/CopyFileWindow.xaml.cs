@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Panuon.UI;
@@ -66,7 +68,7 @@ namespace CustomCopyFileTools
         {
             if (TbtargetPath.Text.Trim().Contains(TbOriginalPath.Text.Trim()))
             {
-                MessageBox.Show("路径存在包含关系，无法复制", "温馨提示");
+                PUMessageBox.ShowConfirm("路径存在包含关系，无法复制", "温馨提示", buttons: Buttons.OK);
                 return;
             }
         }
@@ -76,18 +78,17 @@ namespace CustomCopyFileTools
 
             if (TbtargetPath.Text.Trim().Contains(TbOriginalPath.Text.Trim()))
             {
-                MessageBox.Show("路径有问题，不能复制文件", "温馨提示");
+                PUMessageBox.ShowConfirm("路径有问题，不能复制文件", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);
                 return;
             }
-
             if (!CopyDirectoty(TbOriginalPath.Text, TbtargetPath.Text, true))
             {
-                MessageBox.Show("复制失败", "温馨提示");
+                PUMessageBox.ShowConfirm("复制失败", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);
                 return;
             }
             else
             {
-                MessageBox.Show("复制成功", "温馨提示");
+                PUMessageBox.ShowConfirm("复制成功", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);//.Show("复制成功", "温馨提示");
                 this.Close();
                 return;
             }
@@ -100,12 +101,10 @@ namespace CustomCopyFileTools
             {
                 sourcePath = sourcePath.EndsWith(@"\") ? sourcePath : sourcePath + @"\";
                 targetPath = targetPath.EndsWith(@"\") ? targetPath : targetPath + @"\";
-
                 if (!Directory.Exists(targetPath))
                 {
                     Directory.CreateDirectory(targetPath);
                 }
-
                 var orginalDirectories = Directory.GetDirectories(sourcePath);
                 foreach (var directory in orginalDirectories)
                 {
@@ -116,16 +115,23 @@ namespace CustomCopyFileTools
                     }
                 }
                 var originalFiles = Directory.GetFiles(sourcePath);
+
+                ProgressBar.IsPercentShow = true;
+                ProgressBar.ProgressDirection = ProgressDirections.LeftToRight;
+                ProgressBar.Visibility = Visibility.Visible;
+                var count = 0.0;
                 foreach (var file in originalFiles)
                 {
                     var flinfo = new FileInfo(file);
                     flinfo.CopyTo(targetPath + flinfo.Name, overWrite);
+                    count++;
+                    ProgressBar.Percent = count / originalFiles.Length;
                 }
                 result = true;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                PUMessageBox.ShowConfirm(e.Message, buttons: Buttons.OK, animateStyle: AnimationStyles.Fade);
                 result = false;
             }
             return result;
