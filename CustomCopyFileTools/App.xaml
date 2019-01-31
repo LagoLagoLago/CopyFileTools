@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:CustomCopyFileTools"
              StartupUri="CopyFileWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="pack://application:,,,/Panuon.UI;component/Themes/Control.xaml" />
     </Application.Resources>
 </Application>
