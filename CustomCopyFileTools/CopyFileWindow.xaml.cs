@@ -87,7 +87,7 @@ namespace CustomCopyFileTools
             else
             {
                 PUMessageBox.ShowConfirm("复制成功", "温馨提示", Buttons.Sure, animateStyle: AnimationStyles.Fade);//.Show("复制成功", "温馨提示");
-                Close();
+                //Close();
             }
         }
 
@@ -116,8 +116,7 @@ namespace CustomCopyFileTools
                 //ProgressBar.IsPercentShow = true;
                 //ProgressBar.
                 ProgressBar.Maximum = originalFiles.Length;
-                ProgressBar.Visibility = Visibility.Visible;
-                LbPercent.Visibility = Visibility.Visible;
+                ShowProgressBar(true);
                 UpdateProgressBarDelegate updateProgressBaDelegate = ProgressBar.SetValue;
                 var count = 0.0;
                 foreach (var file in originalFiles)
@@ -128,13 +127,13 @@ namespace CustomCopyFileTools
                     Dispatcher.Invoke(updateProgressBaDelegate, DispatcherPriority.Background, RangeBase.ValueProperty, count);
                     LbPercent.Content = $"{Math.Round(count * 100 / originalFiles.Length, 2)}%";
                 }
-                ProgressBar.Visibility = Visibility.Hidden;
-                LbPercent.Visibility = Visibility.Hidden;
+                ShowProgressBar(false);
                 result = true;
             }
             catch (Exception e)
             {
                 PUMessageBox.ShowConfirm(e.Message, buttons: Buttons.OK, animateStyle: AnimationStyles.Fade);
+                ShowProgressBar(false);
                 result = false;
             }
             return result;
@@ -143,6 +142,12 @@ namespace CustomCopyFileTools
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ShowProgressBar(bool isShow)
+        {
+            ProgressBar.Visibility = isShow ? Visibility.Visible : Visibility.Hidden;
+            LbPercent.Visibility = isShow ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }
