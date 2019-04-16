@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Panuon.UI;
+using System;
 using System.Configuration;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using Panuon.UI;
 
 namespace CustomCopyFileTools
 {
@@ -17,6 +16,11 @@ namespace CustomCopyFileTools
     {
         private readonly Configuration _config;
 
+        /// <summary>
+        /// 更新进度条文字的委托
+        /// </summary>
+        /// <param name="dp"></param>
+        /// <param name="value"></param>
         private delegate void UpdateProgressBarDelegate(DependencyProperty dp, object value);
         public CopyFileWindow()
         {
@@ -57,6 +61,11 @@ namespace CustomCopyFileTools
             }
         }
 
+        /// <summary>
+        /// 更新配置文件指定节点
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         private void UpdateConfig(string key, string value)
         {
             _config.AppSettings.Settings[key].Value = value;
@@ -91,6 +100,13 @@ namespace CustomCopyFileTools
             }
         }
 
+        /// <summary>
+        /// 复制目录文件的核心方法
+        /// </summary>
+        /// <param name="sourcePath">源路径</param>
+        /// <param name="targetPath">目标路径</param>
+        /// <param name="overWrite">是否重写</param>
+        /// <returns></returns>
         private bool CopyDirectoty(string sourcePath, string targetPath, bool overWrite)
         {
             bool result;
